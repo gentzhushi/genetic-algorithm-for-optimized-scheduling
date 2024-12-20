@@ -1,0 +1,15 @@
+{
+	"Turning": ["Lathe"], 
+	"Milling": ["Lathe", "Milling Machine", "CNC Router"], 
+	"Drilling": ["Lathe", "Milling Machine"], 
+	"Welding": ["Welder"], 
+	"Grinding": ["Welder", "Grinder"], 
+	"Polishing": ["Grinder", "Sander"], 
+	"Cutting": ["Milling Machine", "Welder", "Saw", "Bender", "CNC Router", "Laser Cutter"], 
+	"Trimming": ["Milling Machine", "Saw", "Grinder"], 
+	"Bending": ["Bender"], 
+	"Forming": ["Bender", "Press"], 
+	"Pressing": ["Press"], 
+	"Engraving": ["CNC Router", "Laser Cutter"], 
+	"Sanding": ["Sander"]
+}

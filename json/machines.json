@@ -1,0 +1,49 @@
+{
+	"Lathe":[
+		["Turning", 30], 
+		["Milling", 25], 
+		["Drilling", 20]
+	], 
+	"Milling Machine":[
+		["Milling", 30], 
+		["Drilling", 25], 
+		["Cutting", 15], 
+		["Trimming", 30]
+	], 
+	"Welder":[
+		["Welding", 40], 
+		["Cutting", 20], 
+		["Grinding", 30]
+	], 
+	"Grinder":[
+		["Grinding", 25], 
+		["Polishing", 15], 
+		["Trimming", 20]
+	], 
+	"Saw":[
+		["Cutting", 40], 
+		["Trimming", 35]
+	], 
+	"Bender":[
+		["Bending", 30], 
+		["Forming", 20], 
+		["Cutting", 10]
+	], 
+	"Press":[
+		["Pressing", 35], 
+		["Forming", 25]
+	], 
+	"CNC Router":[
+		["Cutting", 25], 
+		["Milling", 20], 
+		["Engraving", 15]
+	], 
+	"Sander":[
+		["Sanding", 30], 
+		["Polishing", 20]
+	], 
+	"Laser Cutter":[
+		["Cutting", 30], 
+		["Engraving", 20]
+	]
+}
