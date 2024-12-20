@@ -1,0 +1,1 @@
+# qitu vjen krejt kodi ig
