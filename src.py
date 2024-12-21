@@ -16,15 +16,11 @@ def calculate_fitness(chromosome: dict, machines: dict) -> int:
     return max(time_map.values())
     # ktheje kohen ma tgat per tcilen eshte ndonje maqine nxan.
 
-def selection(generation: list) -> list:
-    # ka me i zgjedh gjysen ma fit tni gjenerates (gjenerata osht array me kromozome)
-    # bone heap
-    min_heap = [calculate_fitness(chrom) for chrom in generation]
-    heapq.heapify(min_heap)
-
-    # merri bottom 50%
-    selection = [heapq.heappop(min_heap) for _ in range(len(generation) // 2)]
-
+def selection(generation: list, machines: dict) -> list:
+    
+    fitness_with_chromosomes = [(calculate_fitness(schedule, machines), schedule) for schedule in generation]
+    fitness_with_chromosomes.sort(key=lambda x: x[0]) #sorto sipas elementit tpar(schedule)
+    selection = [task for _, task in fitness_with_chromosomes[:len(generation) // 2]]
     return selection
 
 def crossover(parent1: dict, parent2: dict, CROSSOVER_RATE: float) -> tuple[dict, dict]:
@@ -52,7 +48,7 @@ def mutate(chromosome: dict, tasks: dict, MUTATION_RATE: float) -> dict:
         return chromosome
     random_task = random.choice(chromosome.keys())
     chromosome[random_task] = random.choice(tasks[random_task])
-    return
+    return chromosome
 
 # # print(f"{machines}\n\n{tasks}")
 # chromosome1 = generate_chromosome(tasks)
