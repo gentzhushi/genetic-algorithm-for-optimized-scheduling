@@ -1,6 +1,7 @@
 import json
 import src as util
 import random
+import matplotlib.pyplot as plt
 
 """
     qka ka me ndodh qitu:
@@ -28,7 +29,7 @@ with open("json/machines.json") as file:
 with open("json/tasks.json") as file:
     tasks = json.load(file)
 
-POPULLATION_SIZE = 5
+POPULLATION_SIZE = 10
 NUM_GENERATIONS = 100
 MUTATION_RATE = 0.1
 CROSSOVER_RATE = 0.8
@@ -40,6 +41,8 @@ BEST_SCHEDULE_TIME = float("inf")
 BEST_SCHEDULE_TIMES = []
 
 if __name__ == "__main__":
+    # for schedule in POPULLATION:
+    #     print(f"{schedule}")
     for generation in range(NUM_GENERATIONS):
         fitnesses = [util.calculate_fitness(schedule, machines) for schedule in POPULLATION]
         local_best_schedule_time = min(fitnesses)
@@ -49,18 +52,29 @@ if __name__ == "__main__":
         if local_best_schedule_time < BEST_SCHEDULE_TIME:
             BEST_SCHEDULE_TIME = local_best_schedule_time
             BEST_SCHEDULE = local_best_schedule
-        print(f"Generation [{generation + 1}] - \tBest Schedule: [{local_best_schedule_time}]-[{local_best_schedule}]")
-        
-        new_popullation = []
-        top_fittest = util.selection(POPULLATION)
-        while len(new_popullation) < POPULLATION_SIZE:
-            parent1 = top_fittest.pop(0) # pop front
-            parent2 = top_fittest.pop(0)
-            child1, child2 = util.crossover(parent1, parent2, CROSSOVER_RATE)
-            new_popullation.append(util.mutate(child1, tasks))
-            if len(new_popullation) < POPULLATION_SIZE:
-                new_popullation.append(util.mutate(child2, tasks))
-        POPULLATION = new_popullation
+        # print(f"Generation [{generation + 1}] - \tBest Schedule: [{local_best_schedule_time}]-[{local_best_schedule}]")
 
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-    print(f"BEST_SCHEDULE_TIMES: {BEST_SCHEDULE_TIMES}")
+        new_popullation = []
+        top_fittest = util.selection(POPULLATION, machines)
+        while len(new_popullation) < POPULLATION_SIZE:
+            parent1 = random.choice(top_fittest)
+            parent2 = random.choice(top_fittest)
+            child1, child2 = util.crossover(parent1, parent2, CROSSOVER_RATE)
+            new_popullation.append(util.mutate(child1, tasks, MUTATION_RATE))
+            if len(new_popullation) < POPULLATION_SIZE:
+                new_popullation.append(util.mutate(child2, tasks, MUTATION_RATE))
+        POPULLATION = new_popullation
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    print(f"BEST_SCHEDULE: {BEST_SCHEDULE}")
+    print(f"BEST_SCHEDULE_TIME: {BEST_SCHEDULE_TIME}")
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+
+plt.figure(figsize=(10, 6))
+plt.plot(range(1, NUM_GENERATIONS + 1), BEST_SCHEDULE_TIMES, marker="o", linestyle="-", color="b")
+plt.title("Minimal Production Time Across Generations")
+plt.xlabel("Generation")
+plt.ylabel("Minimal Production Time")
+plt.grid()
+plt.tight_layout()
+plt.show()
+plt.savefig("save.png")

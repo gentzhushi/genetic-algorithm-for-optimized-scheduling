@@ -8,19 +8,22 @@ def generate_chromosome(tasks_list: list, tasks: dict) -> list:
     return {task: random.choice(tasks[task]) for task in tasks_list}
     #task -> machine
 
-def calculate_fitness(chromosome: dict, machines: dict) -> int:
+def calculate_fitness(schedule: dict, machines: dict) -> int:
     # kromozomi: machine -> task
+    # print(F"PARAMETRAT: \n\t{chromosome}\n\t{machines}")
     time_map = defaultdict(int)
-    for task, machine in chromosome.items():
+    for task, machine in schedule.items():
             time_map[machine] += machines[machine][task]
     return max(time_map.values())
     # ktheje kohen ma tgat per tcilen eshte ndonje maqine nxan.
 
 def selection(generation: list, machines: dict) -> list:
-    
-    fitness_with_chromosomes = [(calculate_fitness(schedule, machines), schedule) for schedule in generation]
-    fitness_with_chromosomes.sort(key=lambda x: x[0]) #sorto sipas elementit tpar(schedule)
-    selection = [task for _, task in fitness_with_chromosomes[:len(generation) // 2]]
+    fitness_with_chromosomes = []
+    for schedule in generation:
+        fitness_with_chromosomes.append([calculate_fitness(schedule, machines), schedule])
+    # print(fitness_with_chromosomes)
+    sort_sipas_indeksit(fitness_with_chromosomes, 0)
+    selection = [schedule for _, schedule in fitness_with_chromosomes[:len(generation) // 2]]
     return selection
 
 def crossover(parent1: dict, parent2: dict, CROSSOVER_RATE: float) -> tuple[dict, dict]:
@@ -46,23 +49,14 @@ def mutate(chromosome: dict, tasks: dict, MUTATION_RATE: float) -> dict:
     # ka me mutate ni kromozom qe e merr si input
     if random.random() > MUTATION_RATE:
         return chromosome
-    random_task = random.choice(chromosome.keys())
+    task_names = list(chromosome.keys())
+    random_task = random.choice(task_names)
     chromosome[random_task] = random.choice(tasks[random_task])
     return chromosome
 
-# # print(f"{machines}\n\n{tasks}")
-# chromosome1 = generate_chromosome(tasks)
-# chromosome2 = generate_chromosome(tasks)
-
-# print(f"kromozomi:\n{str(chromosome1)}")
-# print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-
-# print(f"fitness: \n{calculate_fitness(chromosome1)}")
-# print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-
-# # print(f"top 50%: {selection()}")
-# # print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-
-# print(f"chromozomes: \n{str(chromosome1)}\n{str(chromosome2)}")
-# print(f"crossover: \n{str(crossover(chromosome1, chromosome2, 1))}")
-# print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+def sort_sipas_indeksit(array: list, index: int):
+    for i in range(len(array)):
+        for j in range(i + 1, len(array)):
+            if array[i][index] > array[j][index]:
+                array[i][index], array[j][index] = array[j][index], array[i][index]
+    return array

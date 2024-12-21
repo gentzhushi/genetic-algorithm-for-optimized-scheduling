@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # Genetic Algorithm for Optimized Scheduling
 
 This project implements a genetic algorithm to optimize the scheduling of tasks across multiple machines in a factory. The goal is to minimize overall production time while adhering to task and machine constraints.
@@ -67,3 +68,9 @@ This section describes the genetic algorithm components implemented in the proje
 - [Lorik Agaj](#lorik-agaj)
 
  
+=======
+# genetic-algorithm-for-optimized-scheduling
+
+duhet me eksekutu qita per me bo:
+pip3 install matplotlib
+>>>>>>> Stashed changes
