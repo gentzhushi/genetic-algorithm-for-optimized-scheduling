@@ -4,13 +4,9 @@ from collections import defaultdict
 import heapq
 
 def generate_chromosome(tasks_list: list, tasks: dict) -> list:
-    # ka me gjenerate random choice of machine for said task, for every task
-    chromosome = defaultdict(list)
-    for task in tasks_list:
-        machine = random.choice(tasks[task])
-        chromosome[task] = machine
-    return chromosome
-    # task -> machine
+    #ka me gjenerate random choice of machine for said task, for every task
+    return {task: random.choice(tasks[task]) for task in tasks_list}
+    #task -> machine
 
 def calculate_fitness(chromosome: dict, machines: dict) -> int:
     # kromozomi: machine -> task
