@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 # Genetic Algorithm for Optimized Scheduling
 
 This project implements a genetic algorithm to optimize the scheduling of tasks across multiple machines in a factory. The goal is to minimize overall production time while adhering to task and machine constraints.
@@ -22,14 +21,14 @@ Ensure you have the following installed:
 
 1. Clone this repository.
 2. Ensure the `machines.json` and `tasks.json` files are located in a `json/` directory relative to the script.
-3. Install any necessary Python dependencies using `pip install -r requirements.txt` (if a `requirements.txt` file is provided).
+3. Install necessary Python dependency using `pip3 install matplotlib`
 
 ## Execution
 
 Run the script using the following command:
 
 ```bash
-python main.py
+python3 main.py
 ```
 
 ## Algorithm Description
@@ -68,9 +67,3 @@ This section describes the genetic algorithm components implemented in the proje
 - [Lorik Agaj](#lorik-agaj)
 
  
-=======
-# genetic-algorithm-for-optimized-scheduling
-
-duhet me eksekutu qita per me bo:
-pip3 install matplotlib
->>>>>>> Stashed changes
